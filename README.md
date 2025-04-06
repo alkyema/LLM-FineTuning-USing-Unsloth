@@ -359,3 +359,91 @@ Here’s the structured breakdown for the image titled **“Fine-tune Claude 3 H
   🚀 [https://unsloth.ai/](https://unsloth.ai/)
 
 ---
+
+---
+
+## 1️⃣ **Full Fine-Tuning vs LoRA**
+
+### 🔧 What is Full Fine-Tuning?
+Full fine-tuning updates **all weights** of a pre-trained LLM. It’s **resource-intensive** but offers **maximum customization**.
+
+### 💡 What is LoRA (Low-Rank Adaptation)?
+LoRA introduces **trainable low-rank matrices** into the model and only updates those during training — leaving original weights untouched.
+
+### ⚔️ Full Fine-Tuning vs LoRA
+
+| Feature                          | 🔧 Full Fine-Tuning             | 🧩 LoRA                                |
+|----------------------------------|----------------------------------|----------------------------------------|
+| 🔄 Parameters Updated            | All weights                     | Only adapter layers (low-rank updates) |
+| 💾 Memory Usage                  | Very High                       | Low                                    |
+| 🚀 Training Speed                | Slow                            | Fast                                   |
+| ⚙️ Hardware Requirements         | GPU with high VRAM              | Can work on mid-tier GPUs              |
+| 🔁 Reusability                   | Less modular                    | Highly modular (can swap LoRA modules) |
+| 💵 Cost                          | Expensive                       | Cost-efficient                         |
+
+✅ **Use Full Fine-Tuning** when:
+- You need full control or task-specific adaptation.
+- Resources are not a limitation.
+
+✅ **Use LoRA** when:
+- You want efficient training with less compute.
+- You need modular and flexible updates.
+
+---
+
+## 2️⃣ **LoRA vs QLoRA**
+
+### 🧩 LoRA Recap:
+LoRA reduces training cost by updating only a few small matrices.
+
+### 🪄 What is QLoRA?
+**QLoRA = Quantized + LoRA**  
+It uses **4-bit quantization** for the base model to save memory **plus** LoRA adapters for training — further improving efficiency.
+
+### ⚔️ LoRA vs QLoRA
+
+| Feature                          | 🧩 LoRA                         | 🪄 QLoRA                                |
+|----------------------------------|----------------------------------|----------------------------------------|
+| 💾 Memory Efficiency             | Low memory (but still float16)  | Ultra-low memory (4-bit base model)    |
+| 🧠 Quantization Used             | ❌ No                           | ✅ Yes (4-bit)                          |
+| 🚀 Training Speed                | Fast                            | Faster (due to smaller model footprint)|
+| 🔧 Base Model Precision          | Float16 or bfloat16             | 4-bit quantized                        |
+| ⚙️ GPU Requirements              | Mid-range GPU (16GB+)           | Can work with consumer GPUs (8GB+)     |
+| 🧪 Use Case                      | Balance of performance & speed  | Maximize efficiency on low hardware    |
+
+✅ **Use QLoRA** when:
+- You want to fine-tune larger models on **consumer-grade GPUs**.
+- You prioritize **memory savings**.
+
+---
+
+## 3️⃣ **Fine-Tuning vs RAG (Retrieval-Augmented Generation)**
+
+### 🎯 What is Fine-Tuning?
+You permanently update the model’s weights based on training data.
+
+### 📚 What is RAG?
+**RAG = Retrieve + Generate**  
+Instead of updating the model, it fetches relevant documents during inference and **generates responses** using them.
+
+### ⚔️ Fine-Tuning vs RAG
+
+| Feature                          | 🎯 Fine-Tuning                 | 📚 RAG                                   |
+|----------------------------------|-------------------------------|------------------------------------------|
+| 🧠 Model Weights Updated         | ✅ Yes                        | ❌ No                                    |
+| 🔄 Dynamic Knowledge Updates     | ❌ Needs re-training           | ✅ Easily update documents                |
+| 🧠 Domain Adaptation             | High accuracy (after training) | Contextual relevance at runtime         |
+| 🔧 Training Complexity           | High                          | Low/None (just set up a retriever)       |
+| 🕒 Response Time                 | Fast (after training)         | Slightly slower (due to retrieval step) |
+| 💾 Data Storage                  | Internalized in model         | Stored externally (vector DB, etc.)     |
+| ⚙️ Use Case                      | Fixed domain-specific tasks   | Dynamic Q&A over large data collections |
+
+✅ **Use Fine-Tuning** when:
+- You have a fixed dataset.
+- You need fast and accurate responses **without external lookup**.
+
+✅ **Use RAG** when:
+- You want the model to respond with **real-time, updated knowledge**.
+- You need to **search a large corpus** (docs, PDFs, DBs, etc.).
+
+---
