@@ -1,8 +1,8 @@
 
 
 # 🚀 Run Unsloth on Windows & Fine-Tune LLMs Locally  
-**Author**: ApexIQ  
-**Date**: 14-03-25  
+**Author**: Satwik Kishore  
+**Date**: 06-04-25  
 
 ---
 
